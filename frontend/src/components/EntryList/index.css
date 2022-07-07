@@ -1,0 +1,11 @@
+.EntryList {
+    text-align: right;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .entry-list {
+    justify-content: right;
+    text-align: right;
+    background-color: gainsboro;
+    display: inline;
+  }
