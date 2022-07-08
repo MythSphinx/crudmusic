@@ -45,6 +45,15 @@ app.post("/add", (req, res) => {
   );
 });
 
+app.delete("/delete/:id", (req, res) => {
+  const name = req.params.id;
+  const sqlDelete = "DELETE FROM music WHERE title = ?";
+
+  db.query(sqlDelete, name, (err, result) => {
+    console.log(err);
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on port 3001");
 });
