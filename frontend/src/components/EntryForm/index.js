@@ -35,6 +35,7 @@ function EntryForm() {
   const [releasedate, setDate] = useState("");
   const [notes, setNote] = useState("");
   const [entryList, setEntryList] = useState([]);
+  const [newTitle, setNewTitle] = useState("");
 
   const submitEntry = () => {
     Axios.post("http://localhost:3001/add", {
@@ -56,15 +57,45 @@ function EntryForm() {
     ]);
   };
 
+  const updateEntry = (id) => {
+    Axios.put("http://localhost:3001/edit", {
+      title: newTitle,
+      id: id,
+    }).then((response) => {
+      setEntryList(
+        entryList.map((val) => {
+          return val.id == id
+            ? {
+                id: val.id,
+                title: newTitle,
+                type: val.type,
+                artist: val.artist,
+                releasedate: val.releasedate,
+                notes: val.notes,
+              }
+            : val;
+        })
+      );
+    });
+  };
+
   const deleteEntry = (id) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`);
+    Axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
+      setEntryList(
+        entryList.filter((val) => {
+          return val.id != id;
+        })
+      );
+    });
   };
 
   return (
     <div>
       <h1 className="intro">MUSIC WAITLIST</h1>
       <div className="intro">
-        A list to keep track of your most anticipated music
+        <span id="description">
+          A list to keep track of your most anticipated music
+        </span>
       </div>
       <div>
         <button id="modalbutton" onClick={openModal}>
@@ -142,6 +173,7 @@ function EntryForm() {
                   <th>Options</th>
                 </tr>
               </thead>
+
               {entryList.map((val) => {
                 return (
                   <tbody>
@@ -152,10 +184,18 @@ function EntryForm() {
                       <td>{val.releasedate}</td>
                       <td>{val.notes}</td>
                       <td>
+                        <input
+                          id="edit-input"
+                          type="text"
+                          placeholder="Edit something"
+                          onChange={(e) => {
+                            setNewTitle(e.target.value);
+                          }}
+                        />
                         <button
-                          id="delete-entry"
+                          id="edit-entry"
                           onClick={() => {
-                            deleteEntry(val.title);
+                            updateEntry(val.id);
                           }}
                         >
                           Edit
@@ -164,7 +204,7 @@ function EntryForm() {
                         <button
                           id="delete-entry"
                           onClick={() => {
-                            deleteEntry(val.title);
+                            deleteEntry(val.id);
                           }}
                         >
                           Delete

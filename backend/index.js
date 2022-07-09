@@ -45,12 +45,30 @@ app.post("/add", (req, res) => {
   );
 });
 
-app.delete("/delete/:id", (req, res) => {
-  const name = req.params.id;
-  const sqlDelete = "DELETE FROM music WHERE title = ?";
+app.put("/edit", (req, res) => {
+  const id = req.body.id;
+  const title = req.body.title;
+  db.query(
+    "UPDATE music SET title = ? WHERE id = ?",
+    [title, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
-  db.query(sqlDelete, name, (err, result) => {
-    console.log(err);
+app.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM music WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
   });
 });
 
