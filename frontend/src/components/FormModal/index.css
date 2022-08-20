@@ -1,10 +1,44 @@
+#entry-modal{
+  border-radius: 50px;
+}
 
+#entry-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 500px;
+}
 
 section {
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#entry-form .ant-select{
+  width: 240px;
+  margin: 13px;
+  font-size: 17px;
+  border-radius: 8px;
+  text-align: center;
+  justify-content: center;
+}
+
+#entry-form .ant-select-selector{
+  border-radius: 8px;
+  height: 35px;
+}
+
+#entry-form input {
+  width: 240px;
+  margin: 13px;
+  font-size: 17px;
+  border-radius: 8px;
+  text-align: center;
+  justify-content: center;
 }
 
 
@@ -23,15 +57,25 @@ section {
   text-align: center;
 }
 
-#label-title {
-  font-size: 20px;
-  font-weight: 500;
-  display: grid;
-  justify-items: center;
+#entry-form button {
+  background-color: rgb(116, 136, 202);
+  border: black;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 30px;
+  margin-top: 15px;
   text-align: center;
+  font-size: 17px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
 }
 
-#music-type {
+#entry-modal button:hover {
+  cursor: pointer;
+  background-color: rgb(92, 110, 168);
+}
+
+/*#music-type {
   width: 250px;
   height: 25px;
   margin: 10px;
@@ -39,7 +83,7 @@ section {
   border-radius: 8px;
   text-align: center;
   justify-content: center;
-}
+}*/
 
 .butshow button:hover {
   cursor: pointer;
@@ -92,39 +136,11 @@ section {
   font-weight: 500;
 }
 
-#delete-entry:hover {
+#modal-button:hover {
   cursor: pointer;
   background-color: rgb(92, 110, 168);
 }
 
-#delete-entry {
-  background-color: rgb(116, 136, 202);
-  border: black;
-  border-radius: 5px;
-  color: white;
-  padding: 10px 18px;
-  font-size: 17px;
-  margin-left: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 500;
-}
-
-#edit-entry:hover {
-  cursor: pointer;
-  background-color: rgb(92, 110, 168);
-}
-
-#edit-entry {
-  background-color: rgb(116, 136, 202);
-  border: black;
-  border-radius: 5px;
-  color: white;
-  padding: 10px 18px;
-  margin-left: 23px;
-  font-size: 17px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 500;
-}
 
 #closemodal {
   background-color: white;
@@ -219,4 +235,8 @@ section {
   display: grid;
   align-content: center;
   justify-content: center;
+}
+
+.ant-modal-root .ant-modal-content {
+  border-radius: 8px;
 }

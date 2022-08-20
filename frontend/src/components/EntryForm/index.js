@@ -1,20 +1,26 @@
 import "./index.css";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import Modal from "react-modal";
+import Modal from 'react-modal';
+import FormModal from "../FormModal"
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 Modal.setAppElement("#root");
 
 function EntryForm() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+    setTitle("");
+    setType("Album")
+    setArtist("");
+    setDate("");
+    setNote("");
+    setEdit(false);
   }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     Axios.get("http://localhost:3001/entries").then((response) => {
@@ -22,8 +28,13 @@ function EntryForm() {
     });
   }, []);
 
+  useEffect(() => {
+    if(show === true && edit === true) {
+
+    }
+  }, [show]);
+
   const optionsType = [
-    { value: "", text: "-- Choose an option --" },
     { value: "Album", text: "Album" },
     { value: "Single", text: "Single" },
     { value: "EP", text: "EP" },
@@ -34,6 +45,8 @@ function EntryForm() {
   const [artist, setArtist] = useState("");
   const [releasedate, setDate] = useState("");
   const [notes, setNote] = useState("");
+  const [edit, setEdit] = useState('');
+  const [targetId, setTargetId] = useState("");
   const [entryList, setEntryList] = useState([]);
   const [newTitle, setNewTitle] = useState("");
 
@@ -55,23 +68,25 @@ function EntryForm() {
         notes: notes,
       },
     ]);
+    handleClose()
   };
 
   const updateEntry = (id) => {
+    console.log(id)
     Axios.put("http://localhost:3001/edit", {
       title: newTitle,
       id: id,
     }).then((response) => {
       setEntryList(
         entryList.map((val) => {
-          return val.id == id
+          return val.id === id
             ? {
-                id: val.id,
-                title: newTitle,
-                type: val.type,
-                artist: val.artist,
-                releasedate: val.releasedate,
-                notes: val.notes,
+                id: id,
+                title: title,
+                type: type,
+                artist: artist,
+                releasedate: releasedate,
+                notes: notes,
               }
             : val;
         })
@@ -89,77 +104,27 @@ function EntryForm() {
     });
   };
 
+  const loadValues = (index) => {
+    setTitle(entryList[index].title)
+    setDate(entryList[index])
+  }
+
   return (
-    <div>
+    <div id="app">
+      <FormModal show={show} handleClose={handleClose} updateEntry={updateEntry} edit={edit} setEdit={setEdit} handleShow={handleShow} entryList={entryList} setEntryList={setEntryList} title={title} setTitle={setTitle} type={type} setType={setType} artist={artist} setArtist={setArtist} releasedate={releasedate} setDate={setDate} notes={notes} setNote={setNote} targetId={targetId}/> 
       <h1 className="intro">MUSIC WAITLIST</h1>
       <div className="intro">
         <span id="description">
           A list to keep track of your most anticipated music
         </span>
       </div>
-      <div>
-        <button id="modalbutton" onClick={openModal}>
+      <div id="modal-button-wrapper">
+        <button id="modal-button" onClick={handleShow}>
           Add New Entry
         </button>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Example Modal"
-          overlayClassName={"modaloverlay"}
-        >
-          <button id="closemodal" onClick={closeModal}>
-            ✖
-          </button>
-          <section id="modalsection">
-            <div className="form">
-              <label id="label-title">Title:</label>
-              <input
-                type="text"
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
-              />
-              <label id="label-title">Type:</label>
-              <select
-                value={type}
-                id="music-type"
-                onChange={(e) => {
-                  setType(e.target.value);
-                }}
-              >
-                {optionsType.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-
-              <label id="label-title">Artist:</label>
-              <input
-                type="text"
-                onChange={(e) => {
-                  setArtist(e.target.value);
-                }}
-              />
-              <label id="label-title">Release Date:</label>
-              <input
-                type="date"
-                onChange={(e) => {
-                  setDate(e.target.value);
-                }}
-              />
-              <label id="label-title">Notes:</label>
-              <input
-                type="text"
-                placeholder="(optional)"
-                onChange={(e) => {
-                  setNote(e.target.value);
-                }}
-              />
-              <button onClick={submitEntry}>Submit</button>
-            </div>
-          </section>
-        </Modal>
+      </div>
+      <div>
+      
         <section className="butshow">
           <div>
             <table className="list">
@@ -174,9 +139,9 @@ function EntryForm() {
                 </tr>
               </thead>
 
-              {entryList.map((val) => {
+              {entryList.map((val, index) => {
                 return (
-                  <tbody>
+                  <tbody key={index} id="">
                     <tr>
                       <td>{val.title}</td>
                       <td>{val.type}</td>
@@ -184,21 +149,16 @@ function EntryForm() {
                       <td>{val.releasedate}</td>
                       <td>{val.notes}</td>
                       <td>
-                        <input
-                          id="edit-input"
-                          type="text"
-                          placeholder="Edit something"
-                          onChange={(e) => {
-                            setNewTitle(e.target.value);
-                          }}
-                        />
                         <button
                           id="edit-entry"
                           onClick={() => {
-                            updateEntry(val.id);
+                            setTargetId(val.id)
+                            handleShow();
+                            setEdit(true);
+                            loadValues(index);
                           }}
                         >
-                          Edit
+                          <EditOutlined />
                         </button>
 
                         <button
@@ -207,7 +167,7 @@ function EntryForm() {
                             deleteEntry(val.id);
                           }}
                         >
-                          Delete
+                          <DeleteOutlined />
                         </button>
                       </td>
                     </tr>
