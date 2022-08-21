@@ -3,14 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import EntryForm from "./components/EntryForm";
-import EntryList from "./components/EntryList";
 import "antd/dist/antd.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <EntryForm />
-    <EntryList />
   </React.StrictMode>
 );
 

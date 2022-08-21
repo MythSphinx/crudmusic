@@ -126,37 +126,19 @@ section {
   font-weight: 500;
 }
 
-#closemodal {
-  background-color: white;
-  border: black;
-  border-radius: 5px;
-  color: black;
-  border: 1px solid black;
-  padding: 2px 7px;
-  text-align: center;
-  position: relative;
-  left: 1198px;
-  margin-bottom: 10px;
-  font-size: 17px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 500;
-}
-
-#closemodal:hover {
-  cursor: pointer;
-  background-color: rgb(160, 163, 172);
-}
 
 #description {
   font-size: 20px;
   font-weight: 400;
 }
 
+
 .list thead th {
   background-color: #30467e;
   color: #fff;
   font-weight: bold;
   font-size: 17px;
+  width: 200px;
 }
 
 .list thead tr th {

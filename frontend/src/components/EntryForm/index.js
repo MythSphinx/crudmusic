@@ -8,8 +8,6 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 Modal.setAppElement("#root");
 
 function EntryForm() {
-  const [modalIsOpen, setIsOpen] = useState(false);
-
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -50,36 +48,15 @@ function EntryForm() {
   const [entryList, setEntryList] = useState([]);
   const [newTitle, setNewTitle] = useState("");
 
-  const submitEntry = () => {
-    Axios.post("http://localhost:3001/add", {
-      title: title,
-      type: type,
-      artist: artist,
-      releasedate: releasedate,
-      notes: notes,
-    });
-    setEntryList([
-      ...entryList,
-      {
-        title: title,
-        type: type,
-        artist: artist,
-        releasedate: releasedate,
-        notes: notes,
-      },
-    ]);
-    handleClose()
-  };
-
-  const updateEntry = (id) => {
-    console.log(id)
+  const updateEntry = (id, res) => {
+    
     Axios.put("http://localhost:3001/edit", {
       title: newTitle,
       id: id,
     }).then((response) => {
       setEntryList(
         entryList.map((val) => {
-          return val.id === id
+          return console.log(val.id === id
             ? {
                 id: id,
                 title: title,
@@ -88,9 +65,9 @@ function EntryForm() {
                 releasedate: releasedate,
                 notes: notes,
               }
-            : val;
-        })
-      );
+            : "")
+        }
+        ))
     });
   };
 
@@ -106,7 +83,10 @@ function EntryForm() {
 
   const loadValues = (index) => {
     setTitle(entryList[index].title)
-    setDate(entryList[index])
+    setType(entryList[index].type)
+    setArtist(entryList[index].artist)
+    setDate(entryList[index].releasedate)
+    setNote(entryList[index].notes)
   }
 
   return (
