@@ -5,10 +5,12 @@ import Modal from 'react-modal';
 import FormModal from "../FormModal"
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
+
 Modal.setAppElement("#root");
 
 function EntryForm() {
   const [show, setShow] = useState(false);
+  const [edit, setEdit] = useState("");
   const handleClose = () => {
     setShow(false);
     setTitle("");
@@ -30,7 +32,7 @@ function EntryForm() {
     if(show === true && edit === true) {
 
     }
-  }, [show]);
+  }, [show, edit]);
 
   const optionsType = [
     { value: "Album", text: "Album" },
@@ -43,20 +45,18 @@ function EntryForm() {
   const [artist, setArtist] = useState("");
   const [releasedate, setDate] = useState("");
   const [notes, setNote] = useState("");
-  const [edit, setEdit] = useState('');
   const [targetId, setTargetId] = useState("");
   const [entryList, setEntryList] = useState([]);
   const [newTitle, setNewTitle] = useState("");
 
   const updateEntry = (id, res) => {
-    
     Axios.put("http://localhost:3001/edit", {
       title: newTitle,
       id: id,
     }).then((response) => {
       setEntryList(
         entryList.map((val) => {
-          return console.log(val.id === id
+          return (val.id === id
             ? {
                 id: id,
                 title: title,
@@ -65,7 +65,7 @@ function EntryForm() {
                 releasedate: releasedate,
                 notes: notes,
               }
-            : "")
+            : val)
         }
         ))
     });

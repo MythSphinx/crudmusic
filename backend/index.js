@@ -46,8 +46,8 @@ app.post("/add", (req, res) => {
 });
 
 app.put("/edit", (req, res) => {
-  const id = req.body.id;
   const title = req.body.title;
+  const id = req.params.id;
   db.query(
     "UPDATE music SET title = ? WHERE id = ?",
     [title, id],

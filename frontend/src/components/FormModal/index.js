@@ -12,7 +12,6 @@ export default function EntryForm(props) {
   ];
 
   const { Option } = Select;
-  const [newTitle, setNewTitle] = useState("");
 
   const submitEntry = () => {
     const updatedEntry = {
