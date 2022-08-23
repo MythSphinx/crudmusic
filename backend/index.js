@@ -46,15 +46,20 @@ app.post("/add", (req, res) => {
 });
 
 app.put("/edit", (req, res) => {
+  const id = req.body.id;
   const title = req.body.title;
-  const id = req.params.id;
+  const type = req.body.type;
+  const artist = req.body.artist;
+  const date = req.body.releasedate;
+  const notes = req.body.notes;
   db.query(
-    "UPDATE music SET title = ? WHERE id = ?",
-    [title, id],
+    "UPDATE music SET title = ?, type = ?, artist = ?, releasedate = ?, notes = ? WHERE id = ?",
+    [title, type, artist, date, notes, id],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
+        console.log(id)
         res.send(result);
       }
     }

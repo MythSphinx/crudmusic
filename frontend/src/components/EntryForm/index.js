@@ -51,14 +51,18 @@ function EntryForm() {
 
   const updateEntry = (id, res) => {
     Axios.put("http://localhost:3001/edit", {
-      title: newTitle,
-      id: id,
+      id: targetId,
+      title: title,
+      type: type,
+      artist: artist,
+      releasedate: releasedate,
+      notes: notes,
     }).then((response) => {
       setEntryList(
         entryList.map((val) => {
           return (val.id === id
             ? {
-                id: id,
+                id: targetId,
                 title: title,
                 type: type,
                 artist: artist,

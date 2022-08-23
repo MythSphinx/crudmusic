@@ -29,7 +29,7 @@ export default function EntryForm(props) {
       ]);
     }
     else {
-      props.updateEntry(props.targetId)
+      props.updateEntry(props.targetId, props.title, props.type, props.artist, props.releasedate, props.notes)
     }
     props.handleClose()
   };
