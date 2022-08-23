@@ -47,7 +47,6 @@ function EntryForm() {
   const [notes, setNote] = useState("");
   const [targetId, setTargetId] = useState("");
   const [entryList, setEntryList] = useState([]);
-  const [newTitle, setNewTitle] = useState("");
 
   const updateEntry = (id, res) => {
     Axios.put("http://localhost:3001/edit", {

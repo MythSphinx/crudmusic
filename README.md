@@ -6,11 +6,11 @@
 
 ## Front Page
 
-![Image](https://i.imgur.com/sKp1kNM.png)
+![Image](https://i.imgur.com/9MoChvt.png)
 
 ## Submit Form
 
-![Image](https://i.imgur.com/r5ViCAT.png)
+![Image](https://i.imgur.com/ZHAwB0t.png)
 
 # Run application
 

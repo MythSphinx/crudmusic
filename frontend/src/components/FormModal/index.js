@@ -1,5 +1,4 @@
 import "./index.css";
-import React, { useState, useEffect } from "react";
 import {Modal, Button, Input, Select} from "antd";
 import Axios from 'axios';
 
