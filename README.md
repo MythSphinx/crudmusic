@@ -19,7 +19,7 @@ To run the application, make sure you're in the right folder then, in the termin
 1. cd frontend
 2. npm install
 3. npm run start
-4. cd ..
+4. open another terminal
 5. cd backend
 6. npm install
 7. npm run devStart
